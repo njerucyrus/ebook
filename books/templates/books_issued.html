@@ -1,13 +1,27 @@
-<table>
-<th>#</th>
-<th>Book No</th>
-<th>Phone Number</th>
-{% for book in books%}
-<tr>
-	<td>{{forloop.counter}}</td>
-	<td>{{book.book_no}}</td>
-	<td>{{book.phone_number}}</td>
-</tr>
-{% endfor %}
+{% extends 'base.html' %}
 
-</table>
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <td>#</td>
+        <td>Book No</td>
+        <td>Student Phone No</td>
+        <td>Reg No</td>
+        <td>Date Issued</td>
+        <td></td>
+        </thead>
+        {% for b in bks %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ b.book_no.book_no }} </td>
+                <td>{{b.phone_no }}</td>
+                <td>{{b.reg_no }}</td>
+                <td>{{ b.date_issued }}</td>
+                <td><a href="#" class="btn btn-danger">Return</a></td>
+                <td>{{ b.date_issued }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    </div></div>
+{% endblock %}

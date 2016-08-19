@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{%block title%}Ebook Homepage {% endblock %}</title>
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
 <!-- search box-->
-
 <form action="{% url 'books:search' %}" method="GET">
     <label for='q'> Search</label>
     <input type="text" name="q" value="{{ query | escape }}">
@@ -29,13 +23,7 @@
 {% endif %}
 
 
-
-
-
 <!--end of search-box-->
-
-
-
 
 
 <h4>List of Available books</h4>
@@ -51,5 +39,4 @@
     
 
 </ul>
-</body>
-</html>
+{% endblock %}

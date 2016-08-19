@@ -37,34 +37,28 @@ def issue_book(request, pk):
                 issued_bk.save()
                 book.save()
                 return HttpResponse("book issued Successfully")
-            except Exception:
+
+            except:
+
                 return HttpResponse("Error! book already issued out.")
     else:
         form = IssueBookForm(initial=form_args)
     return render(request, 'issue_book.html', {'form': form, })
 
 
-def return_book(request):
-    if request.method == 'POST':
-        form = ReturnBookForm(request.POST)
-        if form.is_valid():
-            book_no = request.POST.get('book_no', '')
-            try:
-                book_issued = BooksIssued.objects.get(book_no=book_no)
-                book_count = BookCount.objects.get(book_no=book_no)
-                book = Book.objects.get(book_no=book_no)
-                book.available = True
-                book_count.count += 1
-                book_count.save()
-                book.save()
-                book_issued.delete()
-                return HttpResponse(
-                    'book was book no {} was Successfully Returned.'.format(request.POST.get('book_no', '')))
-            except BooksIssued.DoesNotExist as e:
-                return HttpResponse("No such book was issued {0}:-)".format(str(e)))
-    else:
-        form = ReturnBookForm()
-    return render(request, 'return_book.html', {'form': form, })
+def books_issued_list(request):
+    bks = BooksIssued.objects.all()
+    return render(request, 'books_issued.html', {'bks': bks, })
+
+
+def return_book(request, pk):
+    # get issued book
+
+    i_bk = BooksIssued.objects.get(book_no=pk)
+
+
+
+
 
 
 def search_book(request):
@@ -111,6 +105,3 @@ def user_login(request):
     return render(request, 'login.html', {'form': form, })
 
 
-def issued_books(request):
-    bks = BooksIssued.objects.all()
-    return render(request, 'books_issued.html', {'books': bks, })
