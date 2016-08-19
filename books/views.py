@@ -72,11 +72,12 @@ def search_book(request):
             Q(author__icontains=query) |
             Q(publisher__icontains=query) |
             Q(category__icontains=query)
+            # Q(available=True)
         )
         results = Book.objects.filter(query_set).distinct()
     else:
         results = []
-    return render_to_response('search.html', {'results': results, 'query': query, })
+    return render_to_response('index.html', {'results': results, 'query': query, })
 
 
 def index(request):

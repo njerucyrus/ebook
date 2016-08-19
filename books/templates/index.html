@@ -4,6 +4,40 @@
 	<title>{%block title%}Ebook Homepage {% endblock %}</title>
 </head>
 <body>
+
+<!-- search box-->
+
+<form action="{% url 'books:search' %}" method="GET">
+    <label for='q'> Search</label>
+    <input type="text" name="q" value="{{ query | escape }}">
+    <input type="submit" value="Search">
+</form>
+
+{% if query %}
+    <h6>Showing Results For "{{ query|escape }}"</h6>
+
+    {% if results %}
+        {% for book in results %}
+            <h3>{{ forloop.counter }} {{ book|escape }}</h3>
+           <li><a href="{% url 'books:issue_book' pk=book.pk %}">Issue Out</a></li>
+
+        {% endfor %}
+    {% else %}
+        <h6> No Match found</h6>
+    {% endif %}
+
+{% endif %}
+
+
+
+
+
+<!--end of search-box-->
+
+
+
+
+
 <h4>List of Available books</h4>
 <ul>
     {% if books %}

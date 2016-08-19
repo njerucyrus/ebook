@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Search {% if query %}Results {% endif %}</title>
+    <title>Search {% if query %}Results {% endif %}</title>
 </head>
 <body>
 <form action="" method="GET">
-<label for='q'> Search</label>
-<input type="text" name="q" value="{{query | escape}}">
-<input type="submit" value="Search">	
+    <label for='q'> Search</label>
+    <input type="text" name="q" value="{{ query | escape }}">
+    <input type="submit" value="Search">
 </form>
 
-{%if query %}
-<h6>Showing Results For "{{query|escape}}"</h6>
+{% if query %}
+    <h6>Showing Results For "{{ query|escape }}"</h6>
 
-	{% if results%}
-		{%for book in results%}
-		<h6>{{forloop.counter}}  {{book|escape}}</h6>
-		{% endfor %}
-	{% else %}
-	<h6> No Match found</h6>
-	{% endif %}
+    {% if results %}
+        {% for book in results %}
+            <h6>{{ forloop.counter }} {{ book|escape }}</h6>
+
+        {% endfor %}
+    {% else %}
+        <h6> No Match found</h6>
+    {% endif %}
 
 {% endif %}
 
