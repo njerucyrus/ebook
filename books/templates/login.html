@@ -1,0 +1,5 @@
+<form accept="{%url 'books:login'%}?"next="{{request.get_full_path}}" method="post">
+	{% csrf_token %}
+	{{form.as_p}}
+<input type="submit" value="Login">
+</form>

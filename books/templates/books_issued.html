@@ -1,0 +1,13 @@
+<table>
+<th>#</th>
+<th>Book No</th>
+<th>Phone Number</th>
+{% for book in books%}
+<tr>
+	<td>{{forloop.counter}}</td>
+	<td>{{book.book_no}}</td>
+	<td>{{book.phone_number}}</td>
+</tr>
+{% endfor %}
+
+</table>

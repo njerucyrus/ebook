@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%}Ebook Homepage {% endblock %}</title>
+</head>
+<body>
+<h4>List of Available books</h4>
+<ul>
+    {% if books %}
+    {% for bk in books%}
+	<li><strong>{{bk.title}}</strong> by <i>{{bk.author}}</i></li>
+	{% endfor %}
+	{%else %}
+	<h5>No Book Available!</h5>
+	{% endif %}
+    
+
+</ul>
+</body>
+</html>
