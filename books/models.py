@@ -25,7 +25,7 @@ class Book(models.Model):
 
 
 class BooksIssued(models.Model):
-    book_no = models.ForeignKey(Book, on_delete=models.CASCADE, unique=True)
+    book_no = models.OneToOneField(Book)
     phone_no = models.CharField(max_length=13)
     reg_no = models.CharField(max_length=20)
     date_issued = models.DateTimeField(auto_now_add=True)

@@ -27,15 +27,18 @@ def issue_book(request, pk):
         form = IssueBookForm(request.POST, initial=form_args)
         if form.is_valid():
             cd = form.cleaned_data
-            issued_bk = BooksIssued.objects.create(
-                book_no=book,
-                phone_no=cd['phone_no'],
-                reg_no=cd['reg_no']
-            )
-            book.available = False
-            issued_bk.save()
-            book.save()
-            return HttpResponse("book issued Successfully")
+            try:
+                issued_bk = BooksIssued.objects.create(
+                    book_no=book,
+                    phone_no=cd['phone_no'],
+                    reg_no=cd['reg_no']
+                )
+                book.available = False
+                issued_bk.save()
+                book.save()
+                return HttpResponse("book issued Successfully")
+            except Exception:
+                return HttpResponse("Error! book already issued out.")
     else:
         form = IssueBookForm(initial=form_args)
     return render(request, 'issue_book.html', {'form': form, })
