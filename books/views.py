@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import *
 from books.forms import *
 from django.db.models import Q
 from books.models import *
@@ -19,8 +19,27 @@ def register_book(request):
     return render(request, 'register_book.html', {'form': form})
 
 
-def issue_book(request):
-    return
+def issue_book(request, pk):
+    book = Book.objects.get(pk=pk)
+    book_no = book.book_no
+    form_args = {'book_no': book_no, }
+    if request.method == 'POST':
+        form = IssueBookForm(request.POST, initial=form_args)
+        if form.is_valid():
+            cd = form.cleaned_data
+            issued_bk = BooksIssued.objects.create(
+                book_no=book,
+                phone_no=cd['phone_no'],
+                reg_no=cd['reg_no']
+            )
+            book.available = False
+            issued_bk.save()
+            book.save()
+            return HttpResponse("book issued Successfully")
+    else:
+        form = IssueBookForm(initial=form_args)
+    return render(request, 'issue_book.html', {'form': form, })
+
 
 def return_book(request):
     if request.method == 'POST':

@@ -8,13 +8,10 @@ class RegisterBookForm(forms.ModelForm):
         fields = ('book_no', 'title', 'category', 'author', 'publisher')
 
 
-class IssueBookForm(forms.ModelForm):
-    # book_no = forms.CharField(max_length=20)
-    # phone_number = forms.CharField(max_length=13)
-    # reg_no = forms.CharField(max_length=20)
-    class Meta:
-        model = BooksIssued
-        fields = ('book_no', 'phone_number', 'reg_no')
+class IssueBookForm(forms.Form):
+    book_no = forms.CharField(max_length=20, required=True)
+    phone_no = forms.CharField(max_length=13, required=True)
+    reg_no = forms.CharField(max_length=20, required=True)
 
 
 class ReturnBookForm(forms.Form):

@@ -11,7 +11,7 @@ class Book(models.Model):
         ('Spiritual', 'Spiritual'),
     )
 
-    book_no = models.CharField(max_length=20, primary_key=True, db_index=True)
+    book_no = models.CharField(max_length=20, db_index=True, unique=True)
     title = models.CharField(max_length=50)
     category = models.CharField(max_length=50, choices=BOOK_CATEGORY)
     author = models.CharField(max_length=100)
@@ -26,7 +26,7 @@ class Book(models.Model):
 
 class BooksIssued(models.Model):
     book_no = models.ForeignKey(Book, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=13)
+    phone_no = models.CharField(max_length=13)
     reg_no = models.CharField(max_length=20)
     date_issued = models.DateTimeField(auto_now_add=True)
     # Will change latter after implementation

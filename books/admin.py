@@ -11,7 +11,7 @@ admin.site.register(Book, BookAdmin)
 
 
 class BooksIssuedAdmin(admin.ModelAdmin):
-    list_display = ['book_no', 'phone_number', 'reg_no', 'date_issued', 'return_date']
+    list_display = ['book_no', 'phone_no', 'reg_no', 'date_issued', 'return_date']
 
     class Meta:
         model = BooksIssued

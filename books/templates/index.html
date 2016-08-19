@@ -9,6 +9,7 @@
     {% if books %}
     {% for bk in books%}
 	<li><strong>{{bk.title}}</strong> by <i>{{bk.author}}</i></li>
+    <li><a href="{% url 'books:issue_book' pk=bk.pk %}">Issue Out</a></li>
 	{% endfor %}
 	{%else %}
 	<h5>No Book Available!</h5>
