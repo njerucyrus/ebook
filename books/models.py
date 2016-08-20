@@ -21,11 +21,11 @@ class Book(models.Model):
     date_recorded = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.book_no
+        return str(self.book_no)
 
 
 class BooksIssued(models.Model):
-    book_no = models.OneToOneField(Book)
+    book = models.OneToOneField(Book, verbose_name="Book No")
     phone_no = models.CharField(max_length=13)
     reg_no = models.CharField(max_length=20)
     date_issued = models.DateTimeField(auto_now_add=True)
@@ -36,7 +36,7 @@ class BooksIssued(models.Model):
         verbose_name_plural = 'Books Issued'
 
     def __str__(self):
-        return str(self.book_no)
+        return str(self.book)
 
 
 # stores the number of times a book has been issued out.
@@ -45,7 +45,7 @@ class BookCount(models.Model):
     count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.book_no
+        return str(self.book_no)
 
 
 

@@ -13,11 +13,11 @@
         {% for b in bks %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ b.book_no.book_no }} </td>
+                <td>{{ b.book.book_no }} </td>
                 <td>{{b.phone_no }}</td>
                 <td>{{b.reg_no }}</td>
                 <td>{{ b.date_issued }}</td>
-                <td><a href="#" class="btn btn-danger">Return</a></td>
+                <td><a href="{% url 'books:return_book' pk=b.book.pk %}" class="btn btn-danger">Return</a></td>
                 <td>{{ b.date_issued }}</td>
             </tr>
         {% endfor %}

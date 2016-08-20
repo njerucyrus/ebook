@@ -9,10 +9,18 @@ def register_book(request):
     if request.method == 'POST':
         form = RegisterBookForm(request.POST)
         if form.is_valid():
-            bk_count = BookCount()
-            bk_count.book_no = request.POST.get('book_no', '')
+            cd = form.cleaned_data
+            book_no = cd['book_no']
+
             form.save()
-            bk_count.save()
+            book = Book.objects.get(book_no=book_no)
+
+            bcount = BookCount.objects.create(
+                book_no=book,
+                count=0
+            )
+            bcount.save()
+
             return HttpResponse("Book Saved Successfully!")
     else:
         form = RegisterBookForm()
@@ -29,7 +37,7 @@ def issue_book(request, pk):
             cd = form.cleaned_data
             try:
                 issued_bk = BooksIssued.objects.create(
-                    book_no=book,
+                    book=book,
                     phone_no=cd['phone_no'],
                     reg_no=cd['reg_no']
                 )
@@ -53,12 +61,30 @@ def books_issued_list(request):
 
 def return_book(request, pk):
     # get issued book
+    try:
+        book = Book.objects.get(pk=pk)
+        book_issued = BooksIssued.objects.get(book=book)
+        book_count = BookCount.objects.get(book_no=book)
 
-    i_bk = BooksIssued.objects.get(book_no=pk)
+        if book_count is not None:
+            book_count.count += 1
+            book_count.save()
+            book_issued.delete()
+            book.available = True
+            book.save()
+            return HttpResponse("Book returned successfully.")
 
+        else:
+            book_count = BookCount.objects.create(
+                book_no=book,
+                count=1
+            )
+            book_count.save()
+            book_issued.delete()
+            return HttpResponse("Book returned successfully.")
+    except Exception as e:
 
-
-
+        return HttpResponse("Error occurred book not returned")
 
 
 def search_book(request):
