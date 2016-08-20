@@ -9,7 +9,7 @@ class RegisterBookForm(forms.ModelForm):
 
 
 class IssueBookForm(forms.Form):
-    book_no = forms.CharField(max_length=20, required=True)
+    book_no = forms.CharField(max_length=20, required=True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     phone_no = forms.CharField(max_length=13, required=True)
     reg_no = forms.CharField(max_length=20, required=True)
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'rest_framework',
+    'import_export',
     'books',
 ]
 
@@ -152,3 +153,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# import-export settings
+IMPORT_EXPORT_USE_TRANSACTIONS = False
+IMPORT_EXPORT_SKIP_ADMIN_LOG = False
+IMPORT_EXPORT_TMP_STORAGE_CLASS = None

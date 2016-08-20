@@ -21,7 +21,7 @@ class Book(models.Model):
     date_recorded = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return self.book_no
 
 
 class BooksIssued(models.Model):
