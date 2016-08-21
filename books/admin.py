@@ -1,5 +1,15 @@
 from django.contrib import admin
-from books.models import Book, BooksIssued, BookCount
+from books.models import Book, BooksIssued, BookCount, BookCategory
+
+
+class BookCategoryAdmin(admin.ModelAdmin):
+    list_display = ['category', 'category_slug']
+    prepopulated_fields = {'category_slug': ('category',)}
+
+    class Meta:
+        model = BookCategory
+admin.site.register(BookCategory, BookCategoryAdmin)
+
 
 
 class BookAdmin(admin.ModelAdmin):
