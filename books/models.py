@@ -2,7 +2,7 @@ from django.db import models
 
 
 class BookCategory(models.Model):
-    category = models.CharField(max_length=50)
+    category = models.CharField(max_length=50, unique=True)
     category_slug = models.SlugField(max_length=50)
 
     def __str__(self):
