@@ -1,19 +1,18 @@
 from django.db import models
 
-# Create your models here.
+
+class BookCategory(models.Model):
+    category = models.CharField(max_length=50)
+    category_slug = models.SlugField(max_length=50)
+
+    def __str__(self):
+        return self.category
 
 
 class Book(models.Model):
-    BOOK_CATEGORY = (
-
-        ('Inspirational', 'Inspirational'),
-        ('Mortivational', 'Mortivational'),
-        ('Spiritual', 'Spiritual'),
-    )
-
     book_no = models.CharField(max_length=20, db_index=True, unique=True)
     title = models.CharField(max_length=50)
-    category = models.CharField(max_length=50, choices=BOOK_CATEGORY)
+    category = models.ForeignKey(BookCategory, on_delete=models.CASCADE)
     author = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images', blank=True)
     publisher = models.CharField(max_length=100, blank=True, null=True)
