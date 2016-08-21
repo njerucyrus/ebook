@@ -9,18 +9,7 @@ def register_book(request):
     if request.method == 'POST':
         form = RegisterBookForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            book_no = cd['book_no']
-
             form.save()
-            book = Book.objects.get(book_no=book_no)
-
-            bcount = BookCount.objects.create(
-                book_no=book,
-                count=0
-            )
-            bcount.save()
-
             return HttpResponse("Book Saved Successfully!")
     else:
         form = RegisterBookForm()
@@ -64,26 +53,12 @@ def return_book(request, pk):
     try:
         book = Book.objects.get(pk=pk)
         book_issued = BooksIssued.objects.get(book=book)
-        book_count = BookCount.objects.get(book_no=book)
-
-        if book_count is not None:
-            book_count.count += 1
-            book_count.save()
-            book_issued.delete()
-            book.available = True
-            book.save()
-            return HttpResponse("Book returned successfully.")
-
-        else:
-            book_count = BookCount.objects.create(
-                book_no=book,
-                count=1
-            )
-            book_count.save()
-            book_issued.delete()
-            return HttpResponse("Book returned successfully.")
+        book_issued.delete()
+        book.available = True
+        book.count += 1
+        book.save()
+        return HttpResponse("Book returned successfully.")
     except Exception as e:
-
         return HttpResponse("Error occurred book not returned")
 
 

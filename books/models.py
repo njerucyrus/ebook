@@ -17,6 +17,7 @@ class Book(models.Model):
     image = models.ImageField(upload_to='images', blank=True)
     publisher = models.CharField(max_length=100, blank=True, null=True)
     available = models.BooleanField(default=True)
+    count = models.PositiveIntegerField("Times Borrowed", default=0)
     date_recorded = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -37,14 +38,6 @@ class BooksIssued(models.Model):
     def __str__(self):
         return str(self.book)
 
-
-# stores the number of times a book has been issued out.
-class BookCount(models.Model):
-    book_no = models.ForeignKey(Book, on_delete=models.CASCADE)
-    count = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return str(self.book_no)
 
 
 

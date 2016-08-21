@@ -1,5 +1,5 @@
 from django.contrib import admin
-from books.models import Book, BooksIssued, BookCount, BookCategory
+from books.models import Book, BooksIssued, BookCategory
 
 
 class BookCategoryAdmin(admin.ModelAdmin):
@@ -11,9 +11,8 @@ class BookCategoryAdmin(admin.ModelAdmin):
 admin.site.register(BookCategory, BookCategoryAdmin)
 
 
-
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['book_no', 'title', 'category', 'author', 'publisher', 'available']
+    list_display = ['book_no', 'title', 'category', 'author', 'publisher', 'available', 'count']
 
     class Meta:
         model = Book
@@ -28,21 +27,6 @@ class BooksIssuedAdmin(admin.ModelAdmin):
 admin.site.register(BooksIssued, BooksIssuedAdmin)
 
 
-class BookCountAdmin(admin.ModelAdmin):
-    list_display = ['book_no', 'count']
 
-    class Meta:
-        model = BookCount
-admin.site.register(BookCount, BookCountAdmin)
-
-#
-# class BookAdminImporter(forms.ModelForm):
-# 	class Meta:
-# 		model = Book
-# 		fields = ('book_no', 'title', 'category', 'author', 'publisher',)
-#
-# class BooksCsvAdmin(ImportCSVModelAdmin):
-# 	importer_class = BookAdminImporter
-# admin.site.register(Book, BooksCsvAdmin)
 
 

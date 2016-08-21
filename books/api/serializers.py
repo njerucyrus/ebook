@@ -13,6 +13,3 @@ class BooksIssuedSerializer(serializers.ModelSerializer):
 		model = BooksIssued
 
 
-class BookCountSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = BookCount

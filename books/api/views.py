@@ -34,15 +34,3 @@ class BooksIssuedDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BooksIssuedSerializer
 
 
-class BookCountList(generics.ListCreateAPIView):
-    authentication_classes = (BasicAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    queryset = BookCount.objects.all()
-    serializer_class = BookCountSerializer
-
-
-class BookCountDetail(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes = (BasicAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    queryset = BookCount.objects.all()
-    serializer_class = BookCountSerializer
